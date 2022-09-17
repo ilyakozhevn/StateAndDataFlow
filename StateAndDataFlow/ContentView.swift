@@ -24,6 +24,11 @@ struct ContentView: View {
             ButtonView(timer: timer)
                         
             Spacer()
+            
+            Button(action: {user.isRegister = false}) {
+                Text("Log Out")
+                    .filledRoundedButton(background: .blue)
+            }
         }
     }
 }
@@ -41,13 +46,28 @@ struct ButtonView: View {
     var body: some View {
         Button(action: timer.startTimer) {
             Text(timer.buttonTitle)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .frame(width: 200, height: 60)
-                .background(.red)
-                .cornerRadius(20)
-                .overlay(RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 4))
+                .filledRoundedButton(background: .red)
         }
+    }
+}
+
+struct FilledRoundedButton: ViewModifier {
+    var background: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .font(.title)
+            .fontWeight(.bold)
+            .foregroundColor(.white)
+            .frame(width: 200, height: 60)
+            .background(background)
+            .cornerRadius(20)
+            .overlay(RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 4))
+    }
+}
+
+extension View {
+    func filledRoundedButton(background: Color) -> some View {
+        modifier(FilledRoundedButton(background: background))
     }
 }
