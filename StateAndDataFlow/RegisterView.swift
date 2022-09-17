@@ -11,21 +11,23 @@ struct RegisterView: View {
     @State private var name = ""
     @EnvironmentObject private var user: UserManager
     
+    private var nameIsCorrect: Bool { name.count > 2 }
+    
     var body: some View {
         VStack {
             ZStack(alignment: .trailing){
                 Text(name.count.formatted()).padding(.trailing)
-                    .foregroundColor(name.count > 2 ? .green : .red)
+                    .foregroundColor(nameIsCorrect ? .green : .red)
                 TextField("Enter your name", text: $name)
                     .multilineTextAlignment(.center)
             }
             
-            Button(action: name.count > 2 ? registerUser : {}) {
+            Button(action: nameIsCorrect ? registerUser : {}) {
                 HStack {
                     Image(systemName: "checkmark.circle")
                     Text("OK")
                 }
-                .foregroundColor(name.count > 2 ? .blue : .gray)
+                .foregroundColor(nameIsCorrect ? .blue : .gray)
             }
         }
     }

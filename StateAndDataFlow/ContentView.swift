@@ -29,6 +29,7 @@ struct ContentView: View {
                 Text("Log Out")
                     .filledRoundedButton(background: .blue)
             }
+            .padding(.bottom)
         }
     }
 }
